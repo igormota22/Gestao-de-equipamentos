@@ -197,7 +197,71 @@ class Program
 
             else if (opcaoMenu == "3")
             {
+                Console.WriteLine("---------------------------------");
+                System.Console.WriteLine("Exclusao de equipamento");
+                System.Console.WriteLine("---------------------------");
 
+                Console.WriteLine(
+      "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+      "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
+  );
+
+                for (int i = 0; i < equipamentos.Length; i++)
+                {
+                    Equipamento? e = equipamentos[i];
+
+                    if (e == null)
+                    {
+                        continue;
+                    }
+                    Console.WriteLine(
+              "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+              e.id, e.nome, e.fabricante, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
+                );
+                    System.Console.WriteLine();
+
+                    System.Console.WriteLine("Digite ENTER para continuar");
+                    Console.ReadLine();
+                }
+                string? idSelecionado;
+
+                do
+                {
+                    System.Console.Write("Informe o ID do equipamento que deseja atualizar:");
+                    idSelecionado = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+                    {
+                        break;
+                    }
+                } while (true);
+
+                bool equipamentoExcluido = false;
+
+                for (int i = 0; i < equipamentos.Length; i++)
+                {
+                    Equipamento? e = equipamentos[i];
+
+                    if (e == null)
+                    {
+                        continue;
+                    }
+
+                    if (e.id == idSelecionado)
+                    {
+                        equipamentos[i] = null;
+                        equipamentoExcluido = true;
+                    }
+
+                    if (equipamentoExcluido)
+                    {
+                        Console.WriteLine("---------------------------------");
+                        Console.WriteLine($"O registro \"{idSelecionado}\" foi excluido com sucesso!Digite ENTER para continuar");
+                        Console.WriteLine("---------------------------------");
+                        Console.ReadLine();
+
+                    }
+                }
             }
 
             else if (opcaoMenu == "4")
@@ -217,7 +281,7 @@ class Program
 
                     if (e == null)
                     {
-                        continue;
+                        break;
                     }
                     Console.WriteLine(
               "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
