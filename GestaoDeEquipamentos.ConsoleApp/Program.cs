@@ -115,8 +115,83 @@ class Program
                     System.Console.WriteLine("Digite ENTER para continuar");
                     Console.ReadLine();
                 }
+                string? idSelecionado;
 
-                System.Console.Write("Informe o ID do equipamento que deseja atualizar:");
+                do
+                {
+                    System.Console.Write("Informe o ID do equipamento que deseja atualizar:");
+                    idSelecionado = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+                    {
+                        break;
+                    }
+                } while (true);
+
+                Equipamento? equipamentoSelecionado = null;
+
+                for (int i = 0; i < equipamentos.Length; i++)
+                {
+                    Equipamento e = equipamentos[i];
+
+                    if (e == null)
+                    {
+                        continue;
+                    }
+                    if (e.id == idSelecionado)
+                    {
+                        equipamentoSelecionado = e;
+                        break;
+                    }
+                }
+
+                if (equipamentoSelecionado == null)
+                {
+                    System.Console.WriteLine("----------------------------------------------------------");
+                    System.Console.WriteLine("Nao foi possivel encontrar o equipamento selecionado!Pressione ENTER para continuar");
+                    System.Console.WriteLine("----------------------------------------------------------");
+                    Console.ReadLine();
+                }
+
+                Equipamento novoEquipamento = new Equipamento();
+
+                do
+                {
+                    System.Console.Write("Digite o nome do equipamento:");
+                    novoEquipamento.nome = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(novoEquipamento.nome) && novoEquipamento.nome.Length > 3)
+                    {
+                        break;
+                    }
+                } while (true);
+
+                do
+                {
+                    System.Console.Write("Digite o fabricante:");
+                    novoEquipamento.fabricante = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante) && novoEquipamento.fabricante.Length > 3)
+                    {
+                        break;
+                    }
+                } while (true);
+
+                System.Console.Write("Digite o preço de aquisição do equipamento:");
+                novoEquipamento.precoDeAquisicao = Convert.ToDecimal(Console.ReadLine());
+
+                System.Console.Write("Digite a data de fabricação do equipamento:");
+                novoEquipamento.dataDeFabricacao = Convert.ToDateTime(Console.ReadLine());
+
+                equipamentoSelecionado?.nome = novoEquipamento.nome;
+                equipamentoSelecionado?.fabricante = novoEquipamento.fabricante;
+                equipamentoSelecionado?.precoDeAquisicao = novoEquipamento.precoDeAquisicao;
+                equipamentoSelecionado?.dataDeFabricacao = novoEquipamento.dataDeFabricacao;
+
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine($"O registro \"{idSelecionado}\" foi atualizado com sucesso!Digite ENTER para continuar");
+                Console.WriteLine("---------------------------------");
+                Console.ReadLine();
 
             }
 
