@@ -1,6 +1,5 @@
 ﻿using System.Security.Cryptography;
-
-namespace GestaoDeEquipamentos.ConsoleApp;
+using GestaoDeEquipamentos.ConsoleApp.Dominio;
 
 class Program
 {
