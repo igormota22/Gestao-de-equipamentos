@@ -127,7 +127,32 @@ class Program
 
             else if (opcaoMenu == "4")
             {
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine("Visualização de Equipamento");
+                Console.WriteLine("---------------------------------");
 
+                Console.WriteLine(
+           "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+           "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
+       );
+
+                for (int i = 0; i < equipamentos.Length; i++)
+                {
+                    Equipamento? e = equipamentos[i];
+
+                    if (e == null)
+                    {
+                        continue;
+                    }
+                    Console.WriteLine(
+              "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+              e.id, e.nome, e.fabricante, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
+                );
+                    System.Console.WriteLine();
+
+                    System.Console.WriteLine("Digite ENTER para continuar");
+                    Console.ReadLine();
+                }
             }
         }
     }
