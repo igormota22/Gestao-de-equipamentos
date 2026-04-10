@@ -22,35 +22,35 @@ public class RepositorioEquipamento
             }
         }
     }
-
-    public Equipamento SelecionarID(string idSelecionado)
+    public Equipamento?[] SelecionarTodos()
     {
-        if (string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
-        {
-            return null;
-        }
+        return equipamentos;
+    }
 
+    public Equipamento? SelecionarPorId(string idSelecionado)
+    {
         Equipamento? equipamentoSelecionado = null;
 
         for (int i = 0; i < equipamentos.Length; i++)
         {
-            Equipamento e = equipamentos[i];
+            Equipamento? e = equipamentos[i];
 
             if (e == null)
-            {
                 continue;
-            }
+
             if (e.id == idSelecionado)
             {
-                return e;
+                equipamentoSelecionado = e;
+                break;
             }
         }
-        return null;
+
+        return equipamentoSelecionado;
     }
 
     public bool Editar(string idSelecionado, Equipamento novoEquipamento)
     {
-        Equipamento? equipamentoSelecionado = SelecionarID(idSelecionado);
+        Equipamento? equipamentoSelecionado = SelecionarPorId(idSelecionado);
 
         if (equipamentoSelecionado == null)
         {
