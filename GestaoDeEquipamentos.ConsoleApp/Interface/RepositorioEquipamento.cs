@@ -11,7 +11,7 @@ public class RepositorioEquipamento
     {
         novoEquipamento.id = Convert.ToHexString(RandomNumberGenerator.GetBytes(20)).ToLower().Substring(0, 7);
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        for (int i = 0; i < equipamentos?.Length; i++)
         {
             Equipamento? e = equipamentos[i];
 
@@ -32,7 +32,7 @@ public class RepositorioEquipamento
 
         Equipamento? equipamentoSelecionado = null;
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        for (int i = 0; i < equipamentos?.Length; i++)
         {
             Equipamento e = equipamentos[i];
 
@@ -68,7 +68,7 @@ public class RepositorioEquipamento
     public bool Excluir(string idSelecionado)
     {
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        for (int i = 0; i < equipamentos?.Length; i++)
         {
             Equipamento? e = equipamentos[i];
 
