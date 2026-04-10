@@ -1,12 +1,12 @@
 ﻿using System.Security.Cryptography;
 using GestaoDeEquipamentos.ConsoleApp.Apresentacao;
 using GestaoDeEquipamentos.ConsoleApp.Dominio;
+using GestaoDeEquipamentos.ConsoleApp.Interface;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Equipamento[]? equipamentos = new Equipamento[10];
         TelaEquipamento tela = new TelaEquipamento();
         while (true)
         {
@@ -20,22 +20,22 @@ class Program
 
             if (opcaoMenu == "1")
             {
-                tela.Cadastrar(equipamentos);
+                tela.Cadastrar();
             }
 
             else if (opcaoMenu == "2")
             {
-                tela.Editar(equipamentos);
+                tela.Editar();
             }
 
             else if (opcaoMenu == "3")
             {
-                tela.Excluir(equipamentos);
+                tela.Excluir();
             }
 
             else if (opcaoMenu == "4")
             {
-                tela.Visualizar(equipamentos);
+                tela.Visualizar();
             }
         }
     }

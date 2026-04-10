@@ -1,11 +1,17 @@
 using System;
 using System.Security.Cryptography;
 using GestaoDeEquipamentos.ConsoleApp.Dominio;
+using GestaoDeEquipamentos.ConsoleApp.Interface;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Apresentacao;
 
 public class TelaEquipamento
 {
+
+
+
+    RepositorioEquipamento repositorioEquipamento = new RepositorioEquipamento();
+
     public string? MostrarMenuPrincipal()
     {
         Console.Clear();
@@ -25,7 +31,7 @@ public class TelaEquipamento
 
     }
 
-    public void Cadastrar(Equipamento[] equipamentos)
+    public void Cadastrar()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
@@ -64,18 +70,7 @@ public class TelaEquipamento
         System.Console.Write("Digite a data de fabricação do equipamento:");
         novoEquipamento.dataDeFabricacao = Convert.ToDateTime(Console.ReadLine());
 
-        novoEquipamento.id = Convert.ToHexString(RandomNumberGenerator.GetBytes(20)).ToLower().Substring(0, 7);
-
-        for (int i = 0; i < equipamentos.Length; i++)
-        {
-            Equipamento? e = equipamentos[i];
-
-            if (e == null)
-            {
-                equipamentos[i] = novoEquipamento;
-                break;
-            }
-        }
+        repositorioEquipamento.Cadastrar(novoEquipamento);
 
         Console.WriteLine("---------------------------------");
         Console.WriteLine($"O registro \"{novoEquipamento.nome}\" foi cadastrado com sucesso!Digite ENTER para continuar");
@@ -84,8 +79,10 @@ public class TelaEquipamento
 
     }
 
-    public void Editar(Equipamento[] equipamentos)
+    public void Editar()
     {
+        Equipamento novoEquipamento = new Equipamento();
+
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Ediçao de Equipamento");
         Console.WriteLine("---------------------------------");
@@ -93,11 +90,11 @@ public class TelaEquipamento
         Console.WriteLine(
    "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
    "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
-);
+    );
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        for (int i = 0; i < repositorioEquipamento.equipamentos.Length; i++)
         {
-            Equipamento? e = equipamentos[i];
+            Equipamento? e = repositorioEquipamento.equipamentos[i];
 
             if (e == null)
             {
@@ -114,84 +111,60 @@ public class TelaEquipamento
         }
         string? idSelecionado;
 
+
+
         do
         {
             System.Console.Write("Informe o ID do equipamento que deseja atualizar:");
             idSelecionado = Console.ReadLine();
 
-            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            do
             {
-                break;
-            }
-        } while (true);
+                System.Console.Write("Digite o nome do equipamento:");
+                novoEquipamento.nome = Console.ReadLine();
 
-        Equipamento? equipamentoSelecionado = null;
+                if (!string.IsNullOrWhiteSpace(novoEquipamento.nome) && novoEquipamento.nome.Length > 3)
+                {
+                    break;
+                }
+            } while (true);
 
-        for (int i = 0; i < equipamentos.Length; i++)
-        {
-            Equipamento e = equipamentos[i];
-
-            if (e == null)
+            do
             {
-                continue;
-            }
-            if (e.id == idSelecionado)
-            {
-                equipamentoSelecionado = e;
-                break;
-            }
-        }
+                System.Console.Write("Digite o fabricante:");
+                novoEquipamento.fabricante = Console.ReadLine();
 
-        if (equipamentoSelecionado == null)
-        {
-            System.Console.WriteLine("----------------------------------------------------------");
-            System.Console.WriteLine("Nao foi possivel encontrar o equipamento selecionado!Pressione ENTER para continuar");
-            System.Console.WriteLine("----------------------------------------------------------");
+                if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante) && novoEquipamento.fabricante.Length > 3)
+                {
+                    break;
+                }
+            } while (true);
+
+            System.Console.Write("Digite o preço de aquisição do equipamento:");
+            novoEquipamento.precoDeAquisicao = Convert.ToDecimal(Console.ReadLine());
+
+            System.Console.Write("Digite a data de fabricação do equipamento:");
+            novoEquipamento.dataDeFabricacao = Convert.ToDateTime(Console.ReadLine());
+
+            bool conseguiuSelecionarID = repositorioEquipamento.Editar(idSelecionado, novoEquipamento);
+            if (!conseguiuSelecionarID == null)
+            {
+                System.Console.WriteLine("----------------------------------------------------------");
+                System.Console.WriteLine("Nao foi possivel encontrar o equipamento selecionado!Pressione ENTER para continuar");
+                System.Console.WriteLine("----------------------------------------------------------");
+                Console.ReadLine();
+            }
+
+
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"O registro \"{idSelecionado}\" foi atualizado com sucesso!Digite ENTER para continuar");
+            Console.WriteLine("---------------------------------");
             Console.ReadLine();
-        }
-
-        Equipamento novoEquipamento = new Equipamento();
-
-        do
-        {
-            System.Console.Write("Digite o nome do equipamento:");
-            novoEquipamento.nome = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(novoEquipamento.nome) && novoEquipamento.nome.Length > 3)
-            {
-                break;
-            }
+            break;
         } while (true);
-
-        do
-        {
-            System.Console.Write("Digite o fabricante:");
-            novoEquipamento.fabricante = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante) && novoEquipamento.fabricante.Length > 3)
-            {
-                break;
-            }
-        } while (true);
-
-        System.Console.Write("Digite o preço de aquisição do equipamento:");
-        novoEquipamento.precoDeAquisicao = Convert.ToDecimal(Console.ReadLine());
-
-        System.Console.Write("Digite a data de fabricação do equipamento:");
-        novoEquipamento.dataDeFabricacao = Convert.ToDateTime(Console.ReadLine());
-
-        equipamentoSelecionado?.nome = novoEquipamento.nome;
-        equipamentoSelecionado?.fabricante = novoEquipamento.fabricante;
-        equipamentoSelecionado?.precoDeAquisicao = novoEquipamento.precoDeAquisicao;
-        equipamentoSelecionado?.dataDeFabricacao = novoEquipamento.dataDeFabricacao;
-
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine($"O registro \"{idSelecionado}\" foi atualizado com sucesso!Digite ENTER para continuar");
-        Console.WriteLine("---------------------------------");
-        Console.ReadLine();
     }
 
-    public void Excluir(Equipamento[] equipamentos)
+    public void Excluir()
     {
         Console.WriteLine("---------------------------------");
         System.Console.WriteLine("Exclusao de equipamento");
@@ -202,9 +175,9 @@ public class TelaEquipamento
 "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
 );
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        for (int i = 0; i < repositorioEquipamento.equipamentos.Length; i++)
         {
-            Equipamento? e = equipamentos[i];
+            Equipamento? e = repositorioEquipamento.equipamentos[i];
 
             if (e == null)
             {
@@ -223,7 +196,7 @@ public class TelaEquipamento
 
         do
         {
-            System.Console.Write("Informe o ID do equipamento que deseja atualizar:");
+            System.Console.Write("Informe o ID do equipamento que deseja excluir:");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
@@ -232,35 +205,20 @@ public class TelaEquipamento
             }
         } while (true);
 
-        bool equipamentoExcluido = false;
+        bool conseguiuExcluir = repositorioEquipamento.Excluir(idSelecionado);
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        if (conseguiuExcluir)
         {
-            Equipamento? e = equipamentos[i];
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"O registro \"{idSelecionado}\" foi excluido com sucesso!Digite ENTER para continuar");
+            Console.WriteLine("---------------------------------");
+            Console.ReadLine();
 
-            if (e == null)
-            {
-                continue;
-            }
-
-            if (e.id == idSelecionado)
-            {
-                equipamentos[i] = null;
-                equipamentoExcluido = true;
-            }
-
-            if (equipamentoExcluido)
-            {
-                Console.WriteLine("---------------------------------");
-                Console.WriteLine($"O registro \"{idSelecionado}\" foi excluido com sucesso!Digite ENTER para continuar");
-                Console.WriteLine("---------------------------------");
-                Console.ReadLine();
-
-            }
         }
     }
 
-    public void Visualizar(Equipamento[] equipamentos)
+
+    public void Visualizar()
     {
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Visualização de Equipamento");
@@ -271,9 +229,9 @@ public class TelaEquipamento
    "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
 );
 
-        for (int i = 0; i < equipamentos.Length; i++)
+        for (int i = 0; i < repositorioEquipamento.equipamentos.Length; i++)
         {
-            Equipamento? e = equipamentos[i];
+            Equipamento? e = repositorioEquipamento.equipamentos[i];
 
             if (e == null)
             {
@@ -290,3 +248,4 @@ public class TelaEquipamento
         }
     }
 }
+
