@@ -58,7 +58,7 @@ public class RepositorioEquipamento
         }
 
         equipamentoSelecionado?.nome = novoEquipamento.nome;
-        equipamentoSelecionado?.fabricante = novoEquipamento.fabricante;
+        equipamentoSelecionado?.fabricante.nome = novoEquipamento.fabricante.nome;
         equipamentoSelecionado?.precoDeAquisicao = novoEquipamento.precoDeAquisicao;
         equipamentoSelecionado?.dataDeFabricacao = novoEquipamento.dataDeFabricacao;
 

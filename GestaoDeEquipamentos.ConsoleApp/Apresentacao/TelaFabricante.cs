@@ -7,6 +7,7 @@ namespace GestaoDeEquipamentos.ConsoleApp.Apresentacao;
 public class TelaFabricante
 {
     public RepositorioFabricante repositorioFabricante;
+
     public string? MostrarMenu()
     {
         Console.Clear();

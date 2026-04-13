@@ -9,6 +9,8 @@ public class TelaEquipamento
 {
     public RepositorioEquipamento repositorioEquipamento;
 
+    public RepositorioFabricante repositorioFabricante;
+
     public string? MostrarMenu()
     {
         Console.Clear();
@@ -39,6 +41,43 @@ public class TelaEquipamento
 
         Equipamento novoEquipamento = new Equipamento();
 
+        Console.WriteLine(
+"{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+"Id", "Nome", "Email", "Telefone"
+);
+
+        Fabricante[] fabricantes = repositorioFabricante.SelecionarTodos();
+
+        for (int i = 0; i < fabricantes.Length; i++)
+        {
+            Fabricante? f = fabricantes[i];
+
+            if (f == null)
+            {
+                continue;
+            }
+            Console.WriteLine(
+      "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+      f.id, f.nome, f.email, f.telefone
+        );
+            System.Console.WriteLine();
+
+            System.Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+        }
+        string? idSelecionado;
+
+        System.Console.Write("Informe o ID do fabricante que deseja cadastrar o equipamento:");
+        idSelecionado = Console.ReadLine();
+
+        Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarPorID(idSelecionado);
+        if (fabricanteSelecionado == null)
+        {
+            Console.WriteLine("Fabricante não encontrado!");
+            return;
+        }
+        novoEquipamento.fabricante = fabricanteSelecionado;
+
         do
         {
             System.Console.Write("Digite o nome do equipamento:");
@@ -50,16 +89,6 @@ public class TelaEquipamento
             }
         } while (true);
 
-        do
-        {
-            System.Console.Write("Digite o fabricante:");
-            novoEquipamento.fabricante = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante) && novoEquipamento.fabricante.Length > 3)
-            {
-                break;
-            }
-        } while (true);
 
         System.Console.Write("Digite o preço de aquisição do equipamento:");
         novoEquipamento.precoDeAquisicao = Convert.ToDecimal(Console.ReadLine());
@@ -101,7 +130,7 @@ public class TelaEquipamento
 
             Console.WriteLine(
                 "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-                e.id, e.nome, e.fabricante, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
+                e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
             );
         }
 
@@ -135,11 +164,9 @@ public class TelaEquipamento
 
         do
         {
-            Console.Write("Digite o fabricante do equipamento: ");
-            novoEquipamento.fabricante = Console.ReadLine();
 
-            if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante) &&
-                novoEquipamento.fabricante.Length >= 2)
+            if (!string.IsNullOrWhiteSpace(novoEquipamento.fabricante.nome) &&
+                novoEquipamento.fabricante.nome.Length >= 2)
             {
                 break;
             }
@@ -193,7 +220,7 @@ public class TelaEquipamento
             }
             Console.WriteLine(
       "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-      e.id, e.nome, e.fabricante, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
+      e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
         );
             System.Console.WriteLine();
 
@@ -249,7 +276,7 @@ public class TelaEquipamento
             }
             Console.WriteLine(
       "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-      e.id, e.nome, e.fabricante, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
+      e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
         );
             System.Console.WriteLine();
 

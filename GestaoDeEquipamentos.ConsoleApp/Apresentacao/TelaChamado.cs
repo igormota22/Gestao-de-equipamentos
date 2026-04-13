@@ -58,7 +58,7 @@ public class TelaChamado
             }
             Console.WriteLine(
       "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-      e.id, e.nome, e.fabricante, e.precoDeAquisicao, e.dataDeFabricacao.ToShortDateString()
+      e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao, e.dataDeFabricacao.ToShortDateString()
         );
             System.Console.WriteLine();
 
@@ -69,6 +69,16 @@ public class TelaChamado
 
         System.Console.Write("Informe o ID do equipamento que deseja fazer o chamado:");
         idSelecionado = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(idSelecionado))
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"Não foi possível encontrar o equipamento informado.");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.ReadLine();
+            return;
+        }
 
         do
         {
