@@ -28,21 +28,224 @@ public class TelaFabricante
 
     public void Cadastrar()
     {
+        Console.Clear();
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Gestão de Fabricantes");
+        Console.WriteLine("---------------------------------");
+        System.Console.WriteLine("Cadastro de fabricante");
+        System.Console.WriteLine("---------------------------");
 
+        Fabricante novoFabricante = new Fabricante();
+
+        do
+        {
+            System.Console.Write("Digite o nome do fabricante:");
+            novoFabricante.nome = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(novoFabricante.nome) && novoFabricante.nome.Length > 3)
+            {
+                break;
+            }
+        } while (true);
+
+        do
+        {
+            System.Console.Write("Digite o email:");
+            novoFabricante.email = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(novoFabricante.email) && novoFabricante.email.Length > 3)
+            {
+                break;
+            }
+        } while (true);
+
+        System.Console.Write("Digite o numero de telefone do fabricante:");
+        novoFabricante.telefone = Console.ReadLine();
+
+        repositorioFabricante.Cadastrar(novoFabricante);
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro de \"{novoFabricante.nome}\" foi cadastrado com sucesso!Digite ENTER para continuar");
+        Console.WriteLine("---------------------------------");
+        Console.ReadLine();
     }
 
     public void Editar()
     {
+        Console.Clear();
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Gestão de Fabricantes");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Edição de Fabricante");
+        Console.WriteLine("---------------------------------");
 
+        Console.WriteLine(
+            "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+            "Id", "Nome", "Email", "Telefone"
+        );
+
+        Fabricante?[] fabricantes = repositorioFabricante.SelecionarTodos();
+
+        for (int i = 0; i < fabricantes.Length; i++)
+        {
+            Fabricante? f = fabricantes[i];
+
+            if (f == null)
+                continue;
+
+            Console.WriteLine(
+                "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+                f.id, f.nome, f.email, f.telefone
+            );
+        }
+
+        Console.WriteLine("---------------------------------");
+
+        string? idSelecionado;
+
+        do
+        {
+            Console.Write("Digite o id do fabricante que deseja editar: ");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+                break;
+        } while (true);
+
+        Fabricante novoFabricante = new Fabricante();
+
+        do
+        {
+            Console.Write("Digite o nome do fabricante: ");
+            novoFabricante.nome = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(novoFabricante.nome) &&
+                novoFabricante.nome.Length >= 3)
+            {
+                break;
+            }
+
+        } while (true);
+
+        do
+        {
+            Console.Write("Digite email: ");
+            novoFabricante.email = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(novoFabricante.email) &&
+                novoFabricante.email.Length >= 2)
+            {
+                break;
+            }
+
+        } while (true);
+
+        Console.Write("Digite telefone do fabricante: ");
+        novoFabricante.telefone = Console.ReadLine();
+
+        bool conseguiuEditar = repositorioFabricante.Editar(idSelecionado, novoFabricante);
+
+        if (!conseguiuEditar)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"Não foi possível encontrar o fabricante informado.");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.ReadLine();
+            return;
+        }
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro \"{idSelecionado}\" foi editado com sucesso.");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Digite ENTER para continuar...");
+        Console.ReadLine();
     }
 
     public void Excluir()
     {
+        Console.WriteLine("---------------------------------");
+        System.Console.WriteLine("Exclusao de fabricante");
+        System.Console.WriteLine("---------------------------");
 
+        Console.WriteLine(
+"{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+"Id", "Nome", "Email", "Telefone"
+);
+
+        for (int i = 0; i < repositorioFabricante.fabricantes.Length; i++)
+        {
+            Fabricante? f = repositorioFabricante.fabricantes[i];
+
+            if (f == null)
+            {
+                continue;
+            }
+            Console.WriteLine(
+      "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+      f.id, f.nome, f.email, f.telefone
+        );
+            System.Console.WriteLine();
+
+            System.Console.WriteLine("Digite ENTER para continuar");
+            Console.ReadLine();
+        }
+        string? idSelecionado;
+
+        do
+        {
+            System.Console.Write("Informe o ID do fabricante que deseja excluir:");
+            idSelecionado = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
+            {
+                break;
+            }
+        } while (true);
+
+        bool conseguiuExcluir = repositorioFabricante.Excluir(idSelecionado);
+
+        if (conseguiuExcluir)
+        {
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"O registro \"{idSelecionado}\" foi excluido com sucesso!Digite ENTER para continuar");
+            Console.WriteLine("---------------------------------");
+            Console.ReadLine();
+
+        }
     }
 
     public void Visualizar()
     {
+        Console.WriteLine("---------------------------------");
+        System.Console.WriteLine("Visualização de Fabricante");
+        Console.WriteLine("---------------------------------");
+
+        Console.WriteLine(
+           "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+           "Id", "Nome", "Email", "Telefone"
+       );
+
+        Fabricante?[] fabricantes = repositorioFabricante.SelecionarTodos();
+
+        for (int i = 0; i < fabricantes.Length; i++)
+        {
+            Fabricante? f = fabricantes[i];
+
+            if (f == null)
+                continue;
+
+            Console.WriteLine(
+                "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
+                f.id, f.nome, f.email, f.telefone
+            );
+        }
+
+        System.Console.WriteLine();
+
+        System.Console.WriteLine("Pressione ENTER para continuar");
+        Console.ReadLine();
+
 
     }
 }

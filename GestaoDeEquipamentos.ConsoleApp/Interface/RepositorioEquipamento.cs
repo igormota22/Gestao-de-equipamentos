@@ -29,7 +29,7 @@ public class RepositorioEquipamento
 
     public Equipamento? SelecionarPorId(string idSelecionado)
     {
-        Equipamento? equipamentoSelecionado = null;
+        Equipamento equipamentoSelecionado = null;
 
         for (int i = 0; i < equipamentos.Length; i++)
         {

@@ -1,5 +1,6 @@
 
 namespace GestaoDeEquipamentos.ConsoleApp.Dominio;
+
 public class Equipamento
 {
     public string id;

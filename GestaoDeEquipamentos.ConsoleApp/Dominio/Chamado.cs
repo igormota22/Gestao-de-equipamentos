@@ -8,7 +8,7 @@ public class Chamado
     public string titulo;
     public string? descricao;
     public DateTime dataDeAbertura = DateTime.Now;
-    public Equipamento equipamento;
+    public Fabricante equipamento;
 
 
     public int ObterDiasDecorridos()
