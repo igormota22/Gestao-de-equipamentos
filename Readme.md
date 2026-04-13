@@ -1,6 +1,6 @@
 # Gestão de Equipamentos
 
-![](docs/Code_QSG354UJP0.gif)
+![](docs/Code_dMzC5BGUlj.gif)
 
 
 ## Introdução
