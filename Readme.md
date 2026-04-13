@@ -62,6 +62,31 @@ registrado, sendo que ele pode editar todos os campos.
 * Deve ter os mesmos critérios que o Requisito 2.1.
 Requisito 2.4: Como funcionário Junior quer ter a possibilidade de excluir um chamado.
 
+3. Controle de Fabricantes
+
+Requisito 3.1: Como funcionário, Junior quer ter a possibilidade de registrar os fabricantes dos equipamentos
+registrados.
+* Deve ter um identificador único (id);
+* Deve ter o nome do fabricante;
+* Deve ter o email do fabricante;
+* Deve ter o telefone do fabricante;
+
+Requisito 3.2: Como funcionário Junior quer ter a possibilidade de visualizar todos os fabricantes registrados
+8para controle.
+* Deve ter o nome do fabricante;
+* Deve ter o email do fabricante;
+* Deve ter o telefone do fabricante;
+* Deve ter a quantidade de equipamentos feitos pelo fabricante em registro;
+
+Requisito 3.3: Como funcionário, Junior quer ter a possibilidade de editar um fabricante que esteja registrado,
+sendo que ele possa editar todos os campos.
+* Deve ter os mesmos critérios que o Requisito
+ 3.1.
+Requisito 3.4: Como funcionário, Junior quer ter a possibilidade de excluir um fabricante.
+Requisito 3.5: Como funcionário, Júnior quer ter a possibilidade de cadastrar novos equipamentos informando
+o fabricante do mesmo.
+
+
 ## Como ultilizar
 
 1. Extraia o arquivo GestaoDeEquipamentos.ConsoleApp do repositório com .zip;

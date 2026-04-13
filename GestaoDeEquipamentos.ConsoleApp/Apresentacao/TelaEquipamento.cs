@@ -138,16 +138,18 @@ public class TelaEquipamento
 
         string? idSelecionado;
 
-        do
-        {
-            Console.Write("Digite o id do equipamento que deseja editar: ");
-            idSelecionado = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
-                break;
-        } while (true);
+        Console.Write("Digite o id do equipamento que deseja editar: ");
+        idSelecionado = Console.ReadLine();
 
         Equipamento novoEquipamento = new Equipamento();
+
+        Equipamento EquipamentoSelecionado = repositorioEquipamento.SelecionarPorId(idSelecionado);
+        if (EquipamentoSelecionado == null)
+        {
+            Console.WriteLine("Fabricante não encontrado!");
+            return;
+        }
+        novoEquipamento = EquipamentoSelecionado;
 
         do
         {
