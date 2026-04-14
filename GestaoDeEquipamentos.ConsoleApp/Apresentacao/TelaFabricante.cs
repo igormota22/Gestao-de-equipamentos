@@ -129,19 +129,19 @@ public class TelaFabricante
 
         do
         {
-            Console.Write("Digite email: ");
-            novoFabricante.email = Console.ReadLine();
+            Console.Write("Digite o email: ");
+            novoFabricante.email = Console.ReadLine()?.Trim().ToLower();
 
-            if (!string.IsNullOrWhiteSpace(novoFabricante.email) &&
-                novoFabricante.email.Length >= 2)
+            Console.Write("Digite o telefone: ");
+            novoFabricante.telefone = Console.ReadLine();
+
+            if (VerificarDados(novoFabricante.email, novoFabricante.telefone))
             {
+                novoFabricante.telefone = Regex.Replace(novoFabricante.telefone, @"[^\d]", "");
                 break;
             }
 
         } while (true);
-
-        Console.Write("Digite telefone do fabricante: ");
-        novoFabricante.telefone = Console.ReadLine();
 
         bool conseguiuEditar = repositorioFabricante.Editar(idSelecionado, novoFabricante);
 
