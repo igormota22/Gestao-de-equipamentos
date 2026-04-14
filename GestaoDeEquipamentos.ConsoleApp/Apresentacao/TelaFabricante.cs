@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using GestaoDeEquipamentos.ConsoleApp.Dominio;
 using GestaoDeEquipamentos.ConsoleApp.Interface;
 
@@ -27,6 +28,19 @@ public class TelaFabricante
 
     }
 
+    public bool VerificarDados(string email, string telefone)
+    {
+        string padraoTelefone = @"^(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$";
+        bool emailValido = email.Contains("@") && (email.EndsWith("gmail.com") || email.EndsWith("hotmail.com"));
+        bool telefoneValido = Regex.IsMatch(telefone, padraoTelefone);
+
+        if (emailValido && telefoneValido)
+            return true;
+
+        Console.WriteLine("Email ou telefone inválido!");
+        return false;
+    }
+
     public void Cadastrar()
     {
         Console.Clear();
@@ -51,17 +65,21 @@ public class TelaFabricante
 
         do
         {
-            System.Console.Write("Digite o email:");
-            novoFabricante.email = Console.ReadLine();
+            Console.Write("Digite o email: ");
+            novoFabricante.email = Console.ReadLine()?.Trim().ToLower();
 
-            if (!string.IsNullOrWhiteSpace(novoFabricante.email) && novoFabricante.email.Length > 3)
+            Console.Write("Digite o telefone: ");
+            novoFabricante.telefone = Console.ReadLine();
+
+            if (VerificarDados(novoFabricante.email, novoFabricante.telefone))
             {
+                novoFabricante.telefone = Regex.Replace(novoFabricante.telefone, @"[^\d]", "");
                 break;
             }
+
         } while (true);
 
-        System.Console.Write("Digite o numero de telefone do fabricante:");
-        novoFabricante.telefone = Console.ReadLine();
+
 
         repositorioFabricante.Cadastrar(novoFabricante);
 
