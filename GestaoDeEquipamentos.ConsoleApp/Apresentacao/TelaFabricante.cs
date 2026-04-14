@@ -80,27 +80,8 @@ public class TelaFabricante
         Console.WriteLine("Edição de Fabricante");
         Console.WriteLine("---------------------------------");
 
-        Console.WriteLine(
-            "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
-            "Id", "Nome", "Email", "Telefone"
-        );
+        ObterTabela();
 
-        Fabricante?[] fabricantes = repositorioFabricante.SelecionarTodos();
-
-        for (int i = 0; i < fabricantes.Length; i++)
-        {
-            Fabricante? f = fabricantes[i];
-
-            if (f == null)
-                continue;
-
-            Console.WriteLine(
-                "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
-                f.id, f.nome, f.email, f.telefone
-            );
-        }
-
-        Console.WriteLine("---------------------------------");
 
         string? idSelecionado;
 
@@ -169,28 +150,13 @@ public class TelaFabricante
         System.Console.WriteLine("Exclusao de fabricante");
         System.Console.WriteLine("---------------------------");
 
-        Console.WriteLine(
-"{0, -7} | {1, -15} | {2, -15} | {3, -22}",
-"Id", "Nome", "Email", "Telefone"
-);
+        ObterTabela();
 
-        for (int i = 0; i < repositorioFabricante.fabricantes.Length; i++)
-        {
-            Fabricante? f = repositorioFabricante.fabricantes[i];
+        System.Console.WriteLine();
 
-            if (f == null)
-            {
-                continue;
-            }
-            Console.WriteLine(
-      "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
-      f.id, f.nome, f.email, f.telefone
-        );
-            System.Console.WriteLine();
+        System.Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
 
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
-        }
         string? idSelecionado;
 
         do
@@ -222,6 +188,18 @@ public class TelaFabricante
         System.Console.WriteLine("Visualização de Fabricante");
         Console.WriteLine("---------------------------------");
 
+        ObterTabela();
+
+        System.Console.WriteLine();
+
+        System.Console.WriteLine("Pressione ENTER para continuar");
+        Console.ReadLine();
+
+
+    }
+
+    public void ObterTabela()
+    {
         Console.WriteLine(
            "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
            "Id", "Nome", "Email", "Telefone"
@@ -242,11 +220,6 @@ public class TelaFabricante
             );
         }
 
-        System.Console.WriteLine();
-
-        System.Console.WriteLine("Pressione ENTER para continuar");
-        Console.ReadLine();
-
-
+        Console.WriteLine("---------------------------------");
     }
 }

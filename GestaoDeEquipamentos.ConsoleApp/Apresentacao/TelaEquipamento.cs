@@ -65,6 +65,7 @@ public class TelaEquipamento
             System.Console.WriteLine("Digite ENTER para continuar");
             Console.ReadLine();
         }
+
         string? idSelecionado;
 
         System.Console.Write("Informe o ID do fabricante que deseja cadastrar o equipamento:");
@@ -114,25 +115,7 @@ public class TelaEquipamento
         Console.WriteLine("Edição de Equipamento");
         Console.WriteLine("---------------------------------");
 
-        Console.WriteLine(
-            "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-            "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
-        );
-
-        Equipamento?[] equipamentos = repositorioEquipamento.SelecionarTodos();
-
-        for (int i = 0; i < equipamentos.Length; i++)
-        {
-            Equipamento? e = equipamentos[i];
-
-            if (e == null)
-                continue;
-
-            Console.WriteLine(
-                "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-                e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
-            );
-        }
+        ObterTabela();
 
         Console.WriteLine("---------------------------------");
 
@@ -207,28 +190,9 @@ public class TelaEquipamento
         System.Console.WriteLine("Exclusao de equipamento");
         System.Console.WriteLine("---------------------------");
 
-        Console.WriteLine(
-"{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-"Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
-);
+        ObterTabela();
 
-        for (int i = 0; i < repositorioEquipamento.equipamentos.Length; i++)
-        {
-            Equipamento? e = repositorioEquipamento.equipamentos[i];
-
-            if (e == null)
-            {
-                continue;
-            }
-            Console.WriteLine(
-      "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-      e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
-        );
-            System.Console.WriteLine();
-
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
-        }
+        Console.WriteLine("---------------------------------");
         string? idSelecionado;
 
         do
@@ -261,6 +225,15 @@ public class TelaEquipamento
         Console.WriteLine("Visualização de Equipamento");
         Console.WriteLine("---------------------------------");
 
+        ObterTabela();
+
+        System.Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
+    }
+
+    public void ObterTabela()
+    {
+
         Console.WriteLine(
    "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
    "Id", "Nome", "Fabricante", "Preço de Aquisição", "Data de Fabricação"
@@ -273,7 +246,7 @@ public class TelaEquipamento
 
             if (e == null)
             {
-                break;
+                continue;
 
             }
             Console.WriteLine(
@@ -281,9 +254,6 @@ public class TelaEquipamento
       e.id, e.nome, e.fabricante.nome, e.precoDeAquisicao.ToString("C2"), e.dataDeFabricacao.ToShortDateString()
         );
             System.Console.WriteLine();
-
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
         }
     }
 }

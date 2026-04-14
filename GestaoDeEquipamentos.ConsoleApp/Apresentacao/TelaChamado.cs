@@ -123,25 +123,7 @@ public class TelaChamado
         Console.WriteLine("Edição de chamdo");
         Console.WriteLine("---------------------------------");
 
-        Console.WriteLine(
-            "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-            "Id", "Titulo", "Descrição", "Data de Abertura", "Dias em Aberto"
-        );
-
-        Chamado?[] chamados = repositorioChamado.SelecionarTodos();
-
-        for (int i = 0; i < chamados.Length; i++)
-        {
-            Chamado? c = chamados[i];
-
-            if (c == null)
-                continue;
-
-            Console.WriteLine(
-                "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-                c.id, c.titulo, c.descricao, c.dataDeAbertura.ToShortDateString(), c.ObterDiasDecorridos()
-            );
-        }
+        ObterTabela();
 
         Console.WriteLine("---------------------------------");
 
@@ -208,28 +190,13 @@ public class TelaChamado
         System.Console.WriteLine("Exclusao de chamado");
         System.Console.WriteLine("---------------------------");
 
-        Console.WriteLine(
-"{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-"Id", "Titulo", "Descrição", "Data de Aquisição", "Disas em aberto"
-);
+        ObterTabela();
 
-        for (int i = 0; i < repositorioChamado.chamados.Length; i++)
-        {
-            Chamado? c = repositorioChamado.chamados[i];
+        System.Console.WriteLine();
 
-            if (c == null)
-            {
-                continue;
-            }
-            Console.WriteLine(
-      "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-      c.id, c.titulo, c.descricao, c.dataDeAbertura.ToShortDateString(), c.ObterDiasDecorridos()
-        );
-            System.Console.WriteLine();
+        System.Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
 
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
-        }
         string? idSelecionado;
 
         do
@@ -260,9 +227,19 @@ public class TelaChamado
         Console.WriteLine("Visualização de Chamados");
         Console.WriteLine("---------------------------------");
 
+        ObterTabela();
+
+        System.Console.WriteLine();
+
+        System.Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
+    }
+
+    public void ObterTabela()
+    {
         Console.WriteLine(
-   "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
-   "Id", "tiulo", "Descriçao", "Data de abertura", "Dias em aberto"
+"{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
+"Id", "tiulo", "Descriçao", "Data de abertura", "Dias em aberto"
 );
 
         Console.ReadLine();
@@ -273,16 +250,12 @@ public class TelaChamado
 
             if (c == null)
             {
-                break;
+                continue;
             }
             Console.WriteLine(
       "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
       c.id, c.titulo, c.descricao, c.dataDeAbertura.ToShortDateString(), c.ObterDiasDecorridos()
         );
-            System.Console.WriteLine();
-
-            System.Console.WriteLine("Digite ENTER para continuar");
-            Console.ReadLine();
         }
     }
 }
