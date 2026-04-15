@@ -231,7 +231,7 @@ public class TelaEquipamento
         Console.ReadLine();
     }
 
-    public void ObterTabela()
+    private void ObterTabela()
     {
 
         Console.WriteLine(

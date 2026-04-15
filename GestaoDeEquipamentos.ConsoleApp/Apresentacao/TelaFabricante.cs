@@ -28,19 +28,6 @@ public class TelaFabricante
 
     }
 
-    public bool VerificarDados(string email, string telefone)
-    {
-        string padraoTelefone = @"^(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$";
-        bool emailValido = email.Contains("@") && (email.EndsWith("gmail.com") || email.EndsWith("hotmail.com"));
-        bool telefoneValido = Regex.IsMatch(telefone, padraoTelefone);
-
-        if (emailValido && telefoneValido)
-            return true;
-
-        Console.WriteLine("Email ou telefone inválido!");
-        return false;
-    }
-
     public void Cadastrar()
     {
         Console.Clear();
@@ -216,7 +203,7 @@ public class TelaFabricante
 
     }
 
-    public void ObterTabela()
+    private void ObterTabela()
     {
         Console.WriteLine(
            "{0, -7} | {1, -15} | {2, -15} | {3, -22}",
@@ -239,5 +226,18 @@ public class TelaFabricante
         }
 
         Console.WriteLine("---------------------------------");
+    }
+
+    private bool VerificarDados(string email, string telefone)
+    {
+        string padraoTelefone = @"^(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$";
+        bool emailValido = email.Contains("@") && (email.EndsWith("gmail.com") || email.EndsWith("hotmail.com"));
+        bool telefoneValido = Regex.IsMatch(telefone, padraoTelefone);
+
+        if (emailValido && telefoneValido)
+            return true;
+
+        Console.WriteLine("Email ou telefone inválido!");
+        return false;
     }
 }

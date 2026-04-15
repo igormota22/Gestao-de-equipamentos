@@ -235,7 +235,7 @@ public class TelaChamado
         Console.ReadLine();
     }
 
-    public void ObterTabela()
+    private void ObterTabela()
     {
         Console.WriteLine(
 "{0, -7} | {1, -15} | {2, -15} | {3, -22} | {4, -10}",
